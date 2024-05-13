@@ -32,7 +32,7 @@ return {
     end
 
     vim.keymap.set('n', '<leader>v', function()
-      harpoon:list():append()
+      harpoon:list():add()
     end, { desc = '[v] Add file to harpoon' })
     vim.keymap.set('n', '<leader>R', function()
       harpoon:list():remove()
