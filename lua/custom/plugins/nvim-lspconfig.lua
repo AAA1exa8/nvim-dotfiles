@@ -44,41 +44,6 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    config = function()
-      local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        rust_analyzer = {},
-        tsserver = {},
-        html = { filetypes = { 'html', 'twig', 'hbs' } },
-
-        lua_ls = {
-          Lua = {
-            workspace = { checkThirdParty = true },
-            telemetry = { enable = false },
-            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-          },
-        },
-      }
-      local mason_lspconfig = require 'mason-lspconfig'
-      mason_lspconfig.setup {
-        ensure_installed = vim.tbl_keys(servers),
-      }
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-      mason_lspconfig.setup_handlers {
-        function(server_name)
-          require('lspconfig')[server_name].setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes,
-          }
-        end,
-      }
-    end,
   },
   {
     -- LSP Configuration & Plugins
@@ -96,25 +61,37 @@ return {
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/lazydev.nvim',
     },
-  },
-  config = function()
-    local lspconfig = require 'lspconfig'
-    local servers = {
-      -- clangd = {},
-      -- gopls = {},
-      -- pyright = {},
-      rust_analyzer = {},
-      tsserver = {},
-      html = { filetypes = { 'html', 'twig', 'hbs' } },
+    config = function()
+      local lspconfig = require 'lspconfig' 
+      local servers = {
+        -- clangd = {},
+        -- gopls = {},
+        -- pyright = {},
+        rust_analyzer = {},
+        tsserver = {},
+        html = { filetypes = { 'html', 'twig', 'hbs' } },
 
-      lua_ls = {
-        Lua = {
-          workspace = { checkThirdParty = true },
-          telemetry = { enable = false },
-          -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-          -- diagnostics = { disable = { 'missing-fields' } },
+        lua_ls = {
+          filetypes = { 'lua' },
+          Lua = {
+            workspace = { checkThirdParty = true },
+            telemetry = { enable = false },
+            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            -- diagnostics = { disable = { 'missing-fields' } },
+          },
         },
-      },
-    }
-  end,
+      }
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      for server, _ in pairs(server) do
+        lspconfig[server].setup({
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = servers[server],
+          filetypes = (servers[server] or {}).filetypes,
+        })
+      end
+
+    end,
+  }, 
 }
