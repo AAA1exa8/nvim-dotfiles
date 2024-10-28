@@ -91,7 +91,6 @@ return {
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       opts = {} },
     },
-    config = function() end,
   },
   {
     'folke/lazydev.nvim',
