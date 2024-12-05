@@ -6,7 +6,7 @@ return {
     'Olical/conjure',
     ft = { 'clojure', 'fennel', 'racket' },
     init = function()
-      vim.g['conjure#mapping#doc_word'] = false
+      -- vim.g['conjure#mapping#doc_word'] = false
     end,
     dependencies = { 'PaterJason/cmp-conjure' },
   },
