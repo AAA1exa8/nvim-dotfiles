@@ -76,7 +76,10 @@ return {
           }
         end,
       }
-      require('lspconfig').racket_langserver.setup {}
+      require('lspconfig').racket_langserver.setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      }
     end,
   },
   {
