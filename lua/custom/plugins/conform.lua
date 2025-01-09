@@ -19,6 +19,12 @@ return {
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
+
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if bufname:match '/Balatro/' or bufname:match '/haxagon/' then
+          return
+        end
+
         return { timeout_ms = 500, lsp_format = 'fallback' }
       end,
     }
