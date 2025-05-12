@@ -49,7 +49,7 @@ return {
         end
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client.supports_method 'textDocument/inlayHint' then
+        if client and client_supports_method(client, 'textDocument/inlayHint', event.buf) then
           vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
         end
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
