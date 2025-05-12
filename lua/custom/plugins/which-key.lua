@@ -24,6 +24,8 @@ return {
       { '<leader>t_', hidden = true },
       { '<leader>w',  group = '[W]orkspace' },
       { '<leader>w_', hidden = true },
+      { 'gr',         group = 'Lsp Actions' },
+      { 'gr_',        hidden = true },
     }
     -- register which-key VISUAL mode
     -- required for visual <leader>hs (hunk stage) to work
