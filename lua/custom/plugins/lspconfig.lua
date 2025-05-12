@@ -7,7 +7,7 @@ return {
     'mason-org/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',    opts = {} },
 
     'saghen/blink.cmp',
   },
@@ -47,6 +47,9 @@ return {
         end
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client.supports_method 'textDocument/inlayHint' then
+          vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+        end
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
